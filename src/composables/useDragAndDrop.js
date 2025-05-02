@@ -122,7 +122,7 @@ function clearDropClasses(parent) {
   }
 }
 
-export function useDragAndDrop({ tree, options, draggableNode, rootEl }) {
+export function useDragAndDrop({ isNode, getNodeById, options, draggableNode, rootEl }) {
   // State for drag & drop operations
   const startDragPosition = ref(null)
   const possibleDragNode = ref(null)
@@ -161,7 +161,7 @@ export function useDragAndDrop({ tree, options, draggableNode, rootEl }) {
         draggableNode.value.node.state('dragging', false)
       }
 
-      if (dropDestination.value && tree.value.isNode(dropDestination.value) && dropDestination.value.vm) {
+      if (dropDestination.value && isNode(dropDestination.value) && dropDestination.value.vm) {
         updateHelperClasses(dropDestination.value.vm.$el, null)
 
         const cbResult = callDndCb(
@@ -225,7 +225,7 @@ export function useDragAndDrop({ tree, options, draggableNode, rootEl }) {
         }
 
         if (!dropDestination.value || dropDestination.value.id !== dropDestinationId) {
-          dropDestination.value = tree.value.getNodeById(dropDestinationId)
+          dropDestination.value = getNodeById(dropDestinationId)
         }
 
         if (dropDestination.value && draggableNode.value.node) {

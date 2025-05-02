@@ -6,6 +6,7 @@
   import initKeyboardNavigation from '../utils/keyboardNavigation'
   import assert from '../utils/assert'
   import Tree from '../lib/Tree.js'
+  import { useDragAndDrop } from '../composables/useDragAndDrop.js'
 
   const defaults = {
     direction: 'ltr',
