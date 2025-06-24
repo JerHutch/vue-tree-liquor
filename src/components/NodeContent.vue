@@ -1,55 +1,54 @@
-<script>
-  const NodeContent = {
-    name: 'node-content',
-    props: ['node'],
-    render (h) {
-      const node = this.node
-      const vm = this.node.tree.vm
+<script setup>
+import { ref, nextTick, useSlots, watchEffect } from 'vue'
 
-      if (node.isEditing) {
-        let nodeText = node.text
-
-        this.$nextTick(_ => {
-          this.$refs.editCtrl.focus()
-        })
-
-        return h('input', {
-          domProps: {
-            value: node.text,
-            type: 'text'
-          },
-          class: 'tree-input',
-          on: {
-            input (e) {
-              nodeText = e.target.value
-            },
-            blur () {
-              node.stopEditing(nodeText)
-            },
-            keyup (e) {
-              if (e.keyCode === 13) {
-                node.stopEditing(nodeText)
-              }
-            },
-            mouseup (e) {
-              e.stopPropagation()
-            }
-          },
-          ref: 'editCtrl'
-        })
-      }
-
-      if (vm.$scopedSlots.default) {
-        return vm.$scopedSlots.default({ node: this.node })
-      }
-
-      return h('span', {
-        domProps: {
-          innerHTML: node.text
-        }
-      })
-    }
+const props = defineProps({
+  node: {
+    type: Object,
+    required: true
   }
+})
 
-  export default NodeContent
+const editCtrl = ref(null)
+const slots = useSlots()
+const nodeText = ref('')
+
+// Component name can be set with defineOptions
+defineOptions({
+  name: 'NodeContent'
+})
+
+// Using watchEffect instead of watch
+watchEffect(() => {
+  if (props.node.isEditing) {
+    nodeText.value = props.node.text
+    nextTick(() => {
+      editCtrl.value && editCtrl.value.focus()
+    })
+  }
+})
 </script>
+
+<template>
+  <input
+    v-if="node.isEditing"
+    ref="editCtrl"
+    :value="node.text"
+    type="text"
+    class="tree-input"
+    @input="e => nodeText = e.target.value"
+    @blur="node.stopEditing(nodeText)"
+    @keyup.enter="node.stopEditing(nodeText)"
+    @mouseup.stop
+  />
+
+  <component
+    v-else-if="$slots.default"
+    :is="$slots.default"
+    :node="node"
+  />
+
+  <span
+    v-else
+    v-html="node.text"
+  />
+</template>

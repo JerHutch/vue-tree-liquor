@@ -1,13 +1,27 @@
 import TreeRoot from './components/TreeRoot.vue'
 
-const install = Vue => {
-  Vue.component(TreeRoot.name, TreeRoot)
+// Vue 3 plugin installation function
+const install = (app) => {
+  app.component(TreeRoot.name || 'TreeRoot', TreeRoot)
 }
 
-TreeRoot.install = install
-
-if (typeof window !== 'undefined' && window.Vue) {
-  window.Vue.use(TreeRoot)
+// Create plugin object for Vue 3
+export const LiquorTree = {
+  install
 }
 
-export default TreeRoot
+// Auto-install when Vue is found in the global scope (browser usage)
+let globalVue = null
+if (typeof window !== 'undefined') {
+  globalVue = window.Vue
+}
+
+if (globalVue) {
+  globalVue.createApp({}).use(LiquorTree)
+}
+
+// Export the component itself to allow for destructuring
+export { TreeRoot }
+
+// Default export for backwards compatibility and Vue plugin
+export default LiquorTree

@@ -1,17 +1,28 @@
 module.exports = {
-  extends: [
-    //"eslint:recommended",
-    //"plugin:prettier/recommended",
-    "plugin:vue/recommended"
-  ],
-  plugins: [
-   //"prettier".
-  "jest"
-  ],
-  rules: {
-    eqeqeq: "off",
-    "no-cond-assign": "off"
-  }
+	root: true,
+	env: {
+		node: true,
+	},
+	extends: ['plugin:vue/essential', 'eslint:recommended', '@vue/prettier'],
+	// parserOptions: {
+	//   parser: '@babel/eslint-parser'
+	// },
+	rules: {
+		'no-console': process.env.NODE_ENV === 'production' ? 'warn' : 'off',
+		'no-debugger': process.env.NODE_ENV === 'production' ? 'warn' : 'off',
+		// allow async-await
+		'generator-star-spacing': 'off',
+		// Tab indentation
+		// 'allowIndentationTabs': off,
+		indent: ['off'],
+		'no-tabs': 0,
+	},
+	overrides: [
+		{
+			files: ['**/__tests__/*.{j,t}s?(x)', '**/tests/unit/**/*.spec.{j,t}s?(x)'],
+			env: {
+				jest: true,
+			},
+		},
+	],
 }
-
-// fix the warnings and then uncomment more options above if you want
