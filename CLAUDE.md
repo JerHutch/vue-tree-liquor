@@ -2,6 +2,21 @@
 
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
+For each issue you work on:
+
+1. Create a git branch with a descriptive name based on the issue
+    - git branches should be named with the pattern `feature/{{issue_name}}`
+2. Create a planning document at `tasks/{{issue_name}}.md` that outlines:
+   - Problem description
+   - Proposed solution approach
+   - Key implementation steps
+   - Testing strategy
+3. Implement the solution following the plan
+4. Write comprehensive tests for all new functionality
+5. Create a pull request when complete with a clear description
+
+Always plan before coding, and ensure every feature has proper test coverage.
+
 ## Project Overview
 
 This is a Vue 3 tree component library called LiquorTree - a hierarchical tree view component that supports drag & drop, multi-selection, checkboxes, filtering, and keyboard navigation.
@@ -48,6 +63,7 @@ This codebase has been migrated from Vue 2 to Vue 3. The TreeRoot component uses
 - Uses Vitest for testing
 - Test files were removed during Vue 3 migration (noted in git status)
 - When writing tests, follow Vitest patterns and Vue 3 testing utilities
+- put tests in the /tests directory with a subdirectory matching what is under /src
 
 ## Build Configuration
 - Uses Vite for building and development
