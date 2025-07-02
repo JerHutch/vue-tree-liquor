@@ -47,6 +47,11 @@ export default defineConfig(({ mode }) => {
     server: isDev ? {
       port: 8081,
       open: true
-    } : {}
+    } : {},
+    test: {
+      environment: 'jsdom',
+      globals: true,
+      setupFiles: ['tests/setup.js']
+    }
   };
 });
