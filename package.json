@@ -8,6 +8,7 @@
     "test": "vitest",
     "dev": "vite",
     "build": "vite build",
+    "demo": "vite --config demo/vite.config.js demo/index-new.html",
     "storybook": "start-storybook -p 9001 -c ./docs/storybook -s ./docs/storybook/public"
   },
   "main": "dist/liquor-tree.umd.js",
