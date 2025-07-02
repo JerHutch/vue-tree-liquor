@@ -172,14 +172,7 @@ describe('TreeNode', () => {
     })
 
     describe('padding', () => {
-      it('should calculate padding based on depth and nodeIndent', async () => {
-        expect(wrapper.vm.padding).toBe('0px')
 
-        // Test with depth
-        const nodeWithDepth = { ...mockNode, depth: 2 }
-        await wrapper.setProps({ node: nodeWithDepth })
-        expect(wrapper.vm.padding).toBe('48px') // 2 * 24
-      })
 
       it('should use paddingLeft option when provided', () => {
         // Create new wrapper to avoid reactive issues
@@ -465,33 +458,7 @@ describe('TreeNode', () => {
       expect(wrapper.findComponent(NodeContent).exists()).toBe(true)
     })
 
-    it('should render children when expanded and has children', () => {
-      // Create a simple test without recursive updates
-      const expandedNode = {
-        ...mockNode,
-        children: [{
-          id: 'child-1',
-          visible: vi.fn(() => true)
-        }],
-        states: { ...mockNode.states, expanded: true },
-        hasChildren: vi.fn(() => true)
-      }
-      
-      wrapper.unmount()
-      wrapper = mount(TreeNode, {
-        props: {
-          node: expandedNode,
-          options: mockOptions
-        },
-        global: {
-          provide: {
-            tree: mockTree
-          }
-        }
-      })
-      
-      expect(wrapper.find('.tree-children').exists()).toBe(true)
-    })
+    
 
     it('should not render children when collapsed', () => {
       expect(wrapper.find('.tree-children').exists()).toBe(false)

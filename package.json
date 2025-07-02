@@ -3,13 +3,13 @@
   "description": "A Vue 3 tree component.",
   "version": "1.0.0",
   "author": "Kostiantyn <phlyze@gmail.com>",
+  "contributors": ["JerHutch <tiberiusc@gmail.com>"],
   "scripts": {
     "lint": "eslint . --ext .ts,.vue",
     "test": "vitest",
     "dev": "vite",
     "build": "vite build",
-    "demo": "vite --config demo/vite.config.js demo/index-new.html",
-    "storybook": "start-storybook -p 9001 -c ./docs/storybook -s ./docs/storybook/public"
+    "demo": "vite --config demo/vite.config.js demo/index.html"
   },
   "main": "dist/liquor-tree.umd.js",
   "module": "dist/liquor-tree.esm.js",
